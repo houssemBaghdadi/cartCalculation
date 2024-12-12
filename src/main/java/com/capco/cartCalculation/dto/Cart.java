@@ -2,7 +2,6 @@ package com.capco.cartCalculation.dto;
 
 import com.capco.cartCalculation.model.Product;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Map;
 
