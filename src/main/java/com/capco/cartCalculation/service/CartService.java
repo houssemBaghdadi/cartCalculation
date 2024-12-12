@@ -1,9 +1,7 @@
 package com.capco.cartCalculation.service;
 
 import com.capco.cartCalculation.dto.Cart;
-import com.capco.cartCalculation.model.BusinessCustomer;
 import com.capco.cartCalculation.model.Customer;
-import com.capco.cartCalculation.model.IndividualCustomer;
 import com.capco.cartCalculation.model.Product;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +19,10 @@ public class CartService {
     }
 
     private double getUnitPrice(Customer customer, Product product) {
-        if (customer instanceof IndividualCustomer) {
+        if ("Individual".equals(customer.getType())) {
             return individualPrice(product);
-        } else if (customer instanceof BusinessCustomer) {
-            BusinessCustomer business = (BusinessCustomer) customer;
-            return businessPrice(product, business.getAnnualRevenue());
+        } else if ("Business".equals(customer.getType())) {
+            return businessPrice(product, customer.getAnnualRevenue());
         }
         throw new IllegalArgumentException("Unknown customer type");
     }
@@ -38,8 +35,8 @@ public class CartService {
         };
     }
 
-    private double businessPrice(Product product, double annualRevenue) {
-        if (annualRevenue > 10_000_000) {
+    private double businessPrice(Product product, Double annualRevenue) {
+        if (annualRevenue != null && annualRevenue > 10_000_000) {
             return switch (product) {
                 case HIGH_END_PHONE -> 1000;
                 case MID_RANGE_PHONE -> 550;

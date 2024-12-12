@@ -1,13 +1,23 @@
 package com.capco.cartCalculation.model;
 
-public abstract class Customer {
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Customer {
     private String id;
+    private String type; // "Individual" or "Business"
+    private String lastName;
+    private String firstName;
+    private String companyName;
+    private String vatNumber;
+    private String siren;
+    private Double annualRevenue;
 
-    public Customer(String id) {
+    public Customer(String id, String type) {
         this.id = id;
-    }
-
-    public String getId() {
-        return id;
+        this.type = type;
     }
 }
+
